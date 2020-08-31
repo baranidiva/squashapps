@@ -1,0 +1,64 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-horizontal-stepper-header-container {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #20515b;
+  }
+  .mat-step-label {
+    color: white;
+  } 
+  .mat-step-label-active, .mat-step-label-selected {
+    color: white;
+  }
+
+
+
+  /* .mat-step-icon .mat-step-icon-state-number .mat-step-icon-selected {
+      background-color: #f44336 !important;
+      color: #fff;
+  } */
+
+  .mat-step-header .mat-step-icon-selected {
+    background-color: #f44336 !important;
+    color: #fff;
+  }
+
+  .mat-step-header .mat-step-icon-state-done {
+    background-color: #517178;
+    color: #fff;
+  }
+
+  .mat-step-header .mat-step-label.mat-step-label-active {
+    color: #fff;
+}
+
+.iti {
+  display: block !important;
+}
+
+.mat-step-header .mat-step-icon-state-edit {
+  background-color:  #f44336 !important;
+  color: #fff;
+}
+
+.mat-step-header .mat-step-label {
+    color: #afb6ca;
+}
+
+.mat-stepper-horizontal-line {
+    border-top-width: 0px !important;
+}
+
+.mat-stepper-horizontal {
+     margin-top: 0px !important; 
+}
+
+.mat-button-toggle-checked {
+    color: #f44336; 
+  }
