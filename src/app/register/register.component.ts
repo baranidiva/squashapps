@@ -1,8 +1,10 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ViewChildren } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IState, ICity } from 'country-state-city';
 import { Router } from '@angular/router';
 import csc from 'country-state-city';
+import * as $ from 'jquery';
+
 class ImageSnippet {
   constructor(public src: string, public file: File) {}
 }
@@ -23,11 +25,14 @@ export class RegisterComponent implements OnInit {
   shortName: string = 'in';
   fileToUpload: File = null;
   client: any;
-  // selectedFile: ImageSnippet;
   cardImageBase64: any;
+  private targetInput = 'input0';
 
   constructor(private _formBuilder: FormBuilder,elementRef:ElementRef, public router: Router) { }
 
+  ngAfterViewInit() {
+    this.setFocus();
+  }
   ngOnInit(): void {
   this.AllCountries = csc.getAllCountries();
   this.firstFormGroup = this._formBuilder.group({
@@ -40,9 +45,10 @@ export class RegisterComponent implements OnInit {
   this.secondFormGroup = this._formBuilder.group({
     companyName: ['', Validators.required],
     emailId: ['',[Validators.required, Validators.email] ],
-    JobTitle: ['',Validators.required ],
-    experience: ['',Validators.required ],
+    JobTitle: ['', Validators.required],
+    experience: ['', Validators.required],
     terms: [false,Validators.requiredTrue],
+    //True
   });
 }
 
@@ -83,6 +89,32 @@ setDataInLocalStorage() {
   }
   localStorage.setItem("Details", JSON.stringify(Details));
   this.router.navigate(['/profile']);
+}
+
+private setFocus() {
+  let targetElem = document.getElementById(this.targetInput);
+  setTimeout(function waitTargetElem() {
+    if (document.body.contains(targetElem)) {
+      targetElem.focus();
+    } else {
+      setTimeout(waitTargetElem, 100);
+    }
+  }, 100);
+}
+
+onChange(event: any) {
+  let index = String(event.selectedIndex);
+  this.targetInput = 'input' + index;
+  this.setFocus();
+}
+
+keytab(event, maxLength){
+  debugger;
+  let nextInput = event.srcElement.nextElementSibling;
+  if(event.target.value.length < maxLength)
+      return;
+  else
+      nextInput.focus();
 }
 
 }

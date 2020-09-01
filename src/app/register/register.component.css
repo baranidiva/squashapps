@@ -83,7 +83,10 @@ a{
   min-width: 400px;
   display: table;
   width: 100%;
-  background-color: #eee;
+  /* background-color: #eee; */
+}
+img {
+  border-radius: 50%;
 }
 
 .text-wrapper {
@@ -108,3 +111,38 @@ a{
 .fs {
     font-size: 13px;
 }
+
+/* .radio-toolbar {
+  margin: 10px;
+} */
+
+.radio-toolbar input[type="radio"] {
+  opacity: 0;
+  position: fixed;
+  width: 0;
+}
+
+.radio-toolbar label {
+    display: inline-block;
+    background-color: #fff;
+    padding: 10px 20px;
+    font-family: sans-serif, Arial;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.radio-toolbar label:hover {
+  background-color: #fed;
+}
+
+/* .radio-toolbar input[type="radio"]:focus + label {
+    border: 2px dashed #fed;
+} */
+
+.radio-toolbar input[type="radio"]:checked + label {
+  background-color: #fed;
+    border-color: #fed;
+    color: orange;
+}
+

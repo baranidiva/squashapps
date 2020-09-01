@@ -1,131 +1,140 @@
-<mat-horizontal-stepper linear #stepper>
-    <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
-      <ng-template matStepLabel>Personal Details</ng-template>
-      <div class="login-form">
-        <form [formGroup]="firstFormGroup">
-          <h1 class="text-center mb-0">Add Your Personal Details</h1>
-          <span class="fs">Lorem ipsum is simply dummy text of the printing and type setting
-            industry.</span>
-          <div class="form-group mt-5">
-            <span class="fs">Full Name</span>
-            <input type="text" class="form-control" formControlName="fullName">
-          </div>
-          <div class="form-group">
-            <p class="fs">Gender</p>
-            <mat-button-toggle-group formControlName="gender" appearance="legacy" name="fontStyle"
+<mat-horizontal-stepper linear #stepper (selectionChange)="onChange($event)" >
+  <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
+    <ng-template matStepLabel>Personal Details</ng-template>
+    <div class="login-form">
+      <form [formGroup]="firstFormGroup">
+        <h1 class="text-center mb-0">Add Your Personal Details</h1>
+        <span class="fs">Lorem ipsum is simply dummy text of the printing and type setting
+          industry.</span>
+        <div class="form-group mt-5">
+          <span class="fs">Full Name</span>
+          <input type="text" class="form-control" formControlName="fullName">
+        </div>
+        <div class="form-group">
+          <p class="fs">Gender</p>
+          <!-- <mat-button-toggle-group formControlName="gender" appearance="legacy" name="fontStyle"
               aria-label="Font Style">
-              <mat-button-toggle value="Male">Male</mat-button-toggle>
+              <mat-button-toggle value="Male">Male</mat-button-toggle><mat-divider></mat-divider>
               <mat-button-toggle value="Female">Female</mat-button-toggle>
               <mat-button-toggle value="Others">Others</mat-button-toggle>
-            </mat-button-toggle-group>
+            </mat-button-toggle-group> -->
+          <div class="radio-toolbar">
+            <input formControlName="gender" type="radio" id="radioMale" name="gender" value="Male">
+            <label class="mr-2" for="radioMale">Male</label>
+
+            <input  formControlName="gender" type="radio" id="radioFemale" name="gender" value="Female">
+            <label class="mr-2" for="radioFemale">Female</label>
+
+            <input formControlName="gender" type="radio" id="radioOthers" name="gender" value="Others">
+            <label for="radioOthers">Others</label>
           </div>
-          <div class="form-group">
-            <span class="fs">Country</span>
-            <select #count name="countries" class="form-control" (change)="getState(count.value)"
-              formControlName="country">
-              <option class="flag-icon flag-icon-in flag-icon-squared" value="">Select Country</option>
-              <option *ngFor="let country of AllCountries" [value]="country.id">{{country.name}}</option>
-            </select>
+        </div>
+        <div class="form-group">
+          <span class="fs">Country</span>
+          <select #count name="countries" class="form-control" (change)="getState(count.value)"
+            formControlName="country">
+            <option class="flag-icon flag-icon-in flag-icon-squared" value="">Select Country</option>
+            <option *ngFor="let country of AllCountries" [value]="country.id">{{country.name}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <span class="fs">State</span>
+          <select #state name="states" class="form-control" formControlName="state">
+            <option value="">Select state</option>
+            <option *ngFor="let state of states" [value]="state.id">{{state.name}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <span class="fs">Phone</span>
+          <input id="phone" ng2TelInput [ng2TelInputOptions]="{initialCountry: shortName}" type="number"
+            class="form-control" formControlName="phone">
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block" matStepperNext>Next</button>
+        </div>
+      </form>
+      <p class="text-center">Already have an account?<a href="#">Log In</a></p>
+    </div>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+    <ng-template matStepLabel>Company Details</ng-template>
+    <div class="login-form">
+      <form [formGroup]="secondFormGroup">
+        <h1 class="text-center mb-0">Add Your Company Details</h1>
+        <span class="fs">Lorem ipsum is simply dummy text of the printing and type setting
+          industry.</span>
+        <label for="upload-photo" class="col-12 mt-5 mb-4 rmpm dropzone">
+          <div class="text-wrapper">
+            <img src="./assets/images/placeholder-image.png" width="25%">
+            <a class="centered ml-5">upload you company logo</a>
           </div>
-          <div class="form-group">
-            <span class="fs">State</span>
-            <select #state name="states" class="form-control" formControlName="state">
-              <option value="">Select state</option>
-              <option *ngFor="let state of states" [value]="state.id">{{state.name}}</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <span class="fs">Phone</span>
-            <input id="phone" ng2TelInput [ng2TelInputOptions]="{initialCountry: shortName}" type="number"
-              class="form-control" formControlName="phone">
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block" matStepperNext>Next</button>
-          </div>
-        </form>
-        <p class="text-center">Already have an account?<a href="#">Log In</a></p>
-      </div>
-    </mat-step>
-    <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
-      <ng-template matStepLabel>Company Details</ng-template>
-      <div class="login-form">
-        <form [formGroup]="secondFormGroup">
-          <h1 class="text-center mb-0">Add Your Company Details</h1>
-          <span class="fs">Lorem ipsum is simply dummy text of the printing and type setting
-            industry.</span>
-          <label for="upload-photo" class="col-12 mt-5 mb-4 rmpm dropzone">
-            <div class="text-wrapper">
-              <img src="./assets/images/upload.png" width="15%">
-              <a class="centered ml-5">upload you company logo</a>
+        </label>
+        <input #image type="file" name="photo" id="upload-photo" (change)="handleFileInput($event)" accept="image/*" />
+        <div class="form-group">
+          <span class="fs">Company Name</span>
+          <input id="input1" type="text" class="form-control" formControlName="companyName">
+        </div>
+        <div class="form-group">
+          <span class="fs">Email Id</span>
+          <input #email type="text" class="form-control" formControlName="emailId">
+        </div>
+        <div class="form-group">
+          <span class="fs">Job Title</span>
+          <input type="text" class="form-control" formControlName="JobTitle">
+        </div>
+        <div class="form-group">
+          <span class="fs">Year Of Experience</span>
+          <input type="text" class="form-control" formControlName="experience">
+        </div>
+        <div class="form-group row ml-0">
+          <input type="checkbox" class="form-control terms mr-0" formControlName="terms">
+          <p class="fs mt-2 ml-3">I accept the <a>Tearms and Conditions.</a></p>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-3">
+              <button type="submit" class="btn btn-back btn-block" matStepperPrevious>Back</button>
             </div>
-          </label>
-          <input #image type="file" name="photo" id="upload-photo" (change)="handleFileInput($event)"
-            accept="image/*" />
-          <div class="form-group">
-            <span class="fs">Company Name</span>
-            <input type="text" class="form-control" formControlName="companyName">
-          </div>
-          <div class="form-group">
-            <span class="fs">Email Id</span>
-            <input #email type="text" class="form-control" formControlName="emailId">
-          </div>
-          <div class="form-group">
-            <span class="fs">Job Title</span>
-            <input type="text" class="form-control" formControlName="JobTitle">
-          </div>
-          <div class="form-group">
-            <span class="fs">Year Of Experience</span>
-            <input type="text" class="form-control" formControlName="experience">
-          </div>
-          <div class="form-group row ml-0">
-            <input type="checkbox" class="form-control terms mr-0" formControlName="terms">
-            <p class="fs mt-2 ml-3">I accept the <a>Tearms and Conditions.</a></p>
-          </div>
-          <div class="form-group">
-            <div class="row">
-              <div class="col-3">
-                <button type="submit" class="btn btn-back btn-block" matStepperPrevious>Back</button>
-              </div>
-              <div class="col-9 pl-0">
-                <button type="submit" class="btn btn-primary btn-block" matStepperNext>Send OTP</button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-    </mat-step>
-    <mat-step [editable]="isEditable">
-      <ng-template matStepLabel>Email Verification</ng-template>
-      <div class="login-form">
-        <form>
-          <h1 class="text-center mb-0">Enter Your OTP</h1>
-          <p class="text-center" class="fs">For your security, We need to verify your identity, We sent a 5
-            digit code to {{email.value}} please enter it below.</p>
-  
-          <div class="form-group mt-5">
-            <span class="fs">Enter Your Code</span>
-            <div class="row ml-0">
-              <input type="text" name="otp" class="form-control col-2 mr-3" maxlength="1">
-              <input type="text" name="otp" class="form-control col-2 mr-3" maxlength="1">
-              <input type="text" name="otp" class="form-control col-2 mr-3" maxlength="1">
-              <input type="text" name="otp" class="form-control col-2 mr-3" maxlength="1">
-              <input type="text" name="otp" class="form-control col-2 " maxlength="1" (blur)="getOTP()">
+            <div class="col-9 pl-0">
+              <button type="submit" class="btn btn-primary btn-block" matStepperNext>Send OTP</button>
             </div>
           </div>
-          <div class="form-group">
-            <div class="row">
-              <div class="col-3">
-                <button type="submit" class="btn btn-back btn-block" matStepperPrevious>Back</button>
-              </div>
-              <div class="col-9 pl-0">
-                <button type="submit" class="btn btn-primary btn-block" matStepperNext
-                  (click)="setDataInLocalStorage()">Verify</button>
-              </div>
+        </div>
+      </form>
+    </div>
+  </mat-step>
+  <mat-step [editable]="isEditable">
+    <ng-template matStepLabel>Email Verification</ng-template>
+    <div class="login-form">
+      <form>
+        <h1 class="text-center mb-0">Enter Your OTP</h1>
+        <p class="text-center" class="fs">For your security, We need to verify your identity, We sent a 5
+          digit code to {{email.value}} please enter it below.</p>
+
+        <div class="form-group mt-5">
+          <span class="fs">Enter Your Code</span>
+          <div class="row ml-0">
+            <input id="input2" type="text" name="otp" class="form-control col-2 mr-3" maxlength="1" (keyup)="keytab($event, 1)">
+            <input type="text" name="otp" class="form-control col-2 mr-3" maxlength="1" (keyup)="keytab($event, 1)">
+            <input type="text" name="otp" class="form-control col-2 mr-3" maxlength="1" (keyup)="keytab($event, 1)">
+            <input type="text" name="otp" class="form-control col-2 mr-3" maxlength="1" (keyup)="keytab($event, 1)">
+            <input type="text" name="otp" class="form-control col-2 " maxlength="1" (blur)="getOTP()">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-3">
+              <button type="submit" class="btn btn-back btn-block" matStepperPrevious>Back</button>
+            </div>
+            <div class="col-9 pl-0">
+              <button type="submit" class="btn btn-primary btn-block" matStepperNext
+                (click)="setDataInLocalStorage()">Verify</button>
             </div>
           </div>
-        </form>
-        <p class="text-center">Didn't receive the email? Check your spam filter for an email from <a
-            href="#">{{email.value}}</a></p>
-      </div>
-    </mat-step>
-  </mat-horizontal-stepper>
+        </div>
+      </form>
+      <p class="text-center">Didn't receive the email? Check your spam filter for an email from <a
+          href="#">{{email.value}}</a></p>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
